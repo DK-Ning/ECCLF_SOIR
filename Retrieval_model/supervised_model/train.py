@@ -25,7 +25,7 @@ args.epochs = 70
 
 # Fine-Turning
 model = CLIP().cuda()
-model.load_state_dict(torch.load('unsupervised_'+args.type+'_model_last.pth')['state_dict'])
+model.load_state_dict(torch.load('unsupervised_model_last.pth')['state_dict'])
 
 # load trian data
 train_local_feature, train_edge_local_feature, test_local_feature, test_edge_local_feature, train_global_feature, train_edge_global_feature, \
@@ -57,11 +57,10 @@ def train(net, data_loader, train_optimizer, scheduler, epoch, args):
 
     total_loss, total_num, correct_num1, correct_num2, train_bar = 0.0, 0, 0, 0, tqdm(data_loader)
 
-    for im_1, im_1_b, huffman, huffman_b, label in train_bar:
-        im_1, im_1_b, huffman, huffman_b, label = im_1.cuda(non_blocking=True), im_1_b.cuda(
-            non_blocking=True), huffman.cuda(non_blocking=True), huffman_b.cuda(non_blocking=True), label.cuda(non_blocking=True)
+    for l_f1, l_f2, g_f1, g_f2, label in train_bar:
+        l_f1, l_f2, g_f1, g_f2, label = l_f1.cuda(non_blocking=True), l_f2.cuda(non_blocking=True), g_f1.cuda(non_blocking=True), g_f2.cuda(non_blocking=True), label.cuda(non_blocking=True)
 
-        fea1, out1, fea2, out2 = net(im_1, im_1_b, huffman, huffman_b, label)
+        fea1, out1, fea2, out2 = net(l_f1, l_f2, g_f1, g_f2, label)
         loss1 = SmCELoss(out1, label) + RLL(fea1, label)
         loss2 = SmCELoss(out2, label) + RLL(fea2, label)
         loss = (loss1 + loss2) / 2
@@ -93,11 +92,11 @@ def test(net, test_loader, test_label):
     feature_bank = []
     train_bar = tqdm(test_loader)
     with torch.no_grad():
-        for im_1, im_1_b, huffman, huffman_b in train_bar:
-            im_1, im_1_b, huffman, huffman_b = im_1.cuda(non_blocking=True), im_1_b.cuda(
-                non_blocking=True), huffman.cuda(non_blocking=True), huffman_b.cuda(non_blocking=True)
+        for l_f1, l_f2, g_f1, g_f2 in train_bar:
+            l_f1, l_f2, g_f1, g_f2 = l_f1.cuda(non_blocking=True), l_f2.cuda(non_blocking=True), g_f1.cuda(non_blocking=True), g_f2.cuda(non_blocking=True)
 
-            feature1, feature2 = net(im_1, im_1_b, huffman, huffman_b)
+
+            feature1, feature2 = net(l_f1, l_f2, g_f1, g_f2)
             feature1 = F.normalize(feature1, dim=1)
             feature2 = F.normalize(feature2, dim=1)
             feature = 0.6*feature1 + 0.4*feature2
