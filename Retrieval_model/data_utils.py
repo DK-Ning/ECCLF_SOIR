@@ -70,11 +70,11 @@ def split_data():
     test_edge_global_feature = edge_global_features[7000:, :]
 
 
-    # train_local_feature, test_local_feature, train_label, test_label = train_test_split(LBP_features, label, test_size=0.3, stratify=label, random_state=20240)
-    # train_edge_local_feature, test_edge_local_feature, train_label, test_label = train_test_split(LBP_features_b, label, test_size=0.3, stratify=label, random_state=20240)
+    # train_local_feature, test_local_feature, train_label, test_label = train_test_split(local_features, label, test_size=0.3, stratify=label, random_state=20240)
+    # train_edge_local_feature, test_edge_local_feature, train_label, test_label = train_test_split(edge_local_features, label, test_size=0.3, stratify=label, random_state=20240)
     #
-    # train_global_feature, test_global_feature, train_label, test_label = train_test_split(col_huffman, label, test_size=0.3, stratify=label, random_state=20240)
-    # train_edge_global_feature, test_edge_global_feature, train_label, test_label = train_test_split(col_huffman_b, label, test_size=0.3, stratify=label, random_state=20240)
+    # train_global_feature, test_global_feature, train_label, test_label = train_test_split(global_features, label, test_size=0.3, stratify=label, random_state=20240)
+    # train_edge_global_feature, test_edge_global_feature, train_label, test_label = train_test_split(edge_global_features, label, test_size=0.3, stratify=label, random_state=20240)
 
     return train_local_feature, train_edge_local_feature, test_local_feature, test_edge_local_feature, train_global_feature, train_edge_global_feature, \
         test_global_feature, test_edge_global_feature, train_label, test_label
