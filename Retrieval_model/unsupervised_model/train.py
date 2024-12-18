@@ -45,10 +45,10 @@ def train(net, data_loader, train_optimizer, epoch, scheduler, args):
     net.train()
     scheduler.step()
     total_loss, total_num, train_bar = 0.0, 0, tqdm(data_loader)
-    for im_1, im_1_b, huffman, huffman_b in train_bar:
-        im_1, im_1_b, huffman, huffman_b = im_1.cuda(non_blocking=True), im_1_b.cuda(non_blocking=True),  huffman.cuda(non_blocking=True), huffman_b.cuda(non_blocking=True)
+    for l_f1, l_f2, g_f1, g_f2 in train_bar:
+        l_f1, l_f2, g_f1, g_f2 = l_f1.cuda(non_blocking=True), l_f2.cuda(non_blocking=True), g_f1.cuda(non_blocking=True), g_f2.cuda(non_blocking=True)
 
-        loss = net(im_1, im_1_b, huffman, huffman_b)
+        loss = net(l_f1, l_f2, g_f1, g_f2)
 
         train_optimizer.zero_grad()
         loss.backward()
@@ -68,11 +68,10 @@ def test(net, test_loader, test_label):
     feature_bank = []
     train_bar = tqdm(test_loader)
     with torch.no_grad():
-        for im_1, im_1_b, huffman, huffman_b in train_bar:
-            im_1, im_1_b, huffman, huffman_b = im_1.cuda(non_blocking=True), im_1_b.cuda(
-                non_blocking=True), huffman.cuda(non_blocking=True), huffman_b.cuda(non_blocking=True)
+        for l_f1, l_f2, g_f1, g_f2 in train_bar:
+            l_f1, l_f2, g_f1, g_f2 = l_f1.cuda(non_blocking=True), l_f2.cuda(non_blocking=True), g_f1.cuda(non_blocking=True), g_f2.cuda(non_blocking=True)
 
-            feature1, feature2 = net(im_1, im_1_b, huffman, huffman_b)
+            feature1, feature2 = net(l_f1, l_f2, g_f1, g_f2)
             feature1 = F.normalize(feature1, dim=1)
             feature2 = F.normalize(feature2, dim=1)
             feature = 0.6*feature1 + 0.4*feature2
