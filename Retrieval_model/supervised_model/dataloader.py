@@ -25,4 +25,4 @@ class DataPair(Dataset):
         return local_f_aug, edge_loacal_f_aug, global_f, edge_global_f, label
 
     def __len__(self):
-        return len(self.img_data)
+        return len(self.local_feature)
