@@ -133,13 +133,13 @@ class TiT1(nn.Module):
             self.TiT.append(net(dim=self.represent_dim, seq_len=self.seq_len, token_dim=token_dim,
                                                   channel_dim=channel_dim, seq_inner_num=seq_inner_num))
 
-    def forward(self, x, huffman_code):
+    def forward(self, x, g_f):
         n = x.shape[0]
         x = x.view(n, -1, self.d_model)
         x = self.linear_encoding(x)
-        huffman_code = huffman_code.view(n, -1, 522)
-        huffman_code = self.huffman_code(huffman_code)
-        x = torch.cat((huffman_code, x), dim=1)
+        g_f = g_f.view(n, -1, 522)
+        g_f = self.huffman_code(g_f)
+        x = torch.cat((g_f, x), dim=1)
         inner_x = x
         for TiT in self.TiT:
             x, inner_x = TiT(x, inner_x)
