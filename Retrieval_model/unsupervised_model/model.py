@@ -19,7 +19,7 @@ class NetWrapper(nn.Module):
 ## ECCLF model
 class ECCLF(nn.Module):
     def __init__(self, T=0.1):
-        super(CLIP, self).__init__()
+        super(ECCLF, self).__init__()
 
         self.net = NetWrapper(net1=TiT1(), net2=TiT2())
         self.logit_scale = nn.Parameter(torch.ones([]) * np.log(1 / T))
