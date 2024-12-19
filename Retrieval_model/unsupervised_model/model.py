@@ -16,8 +16,8 @@ class NetWrapper(nn.Module):
 
         return representation1 ,representation2
 
-## CLIP model
-class CLIP(nn.Module):
+## ECCLF model
+class ECCLF(nn.Module):
     def __init__(self, T=0.1):
         super(CLIP, self).__init__()
 
