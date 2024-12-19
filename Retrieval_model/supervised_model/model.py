@@ -11,15 +11,15 @@ class supervised_net(nn.Module):
 
     def forward(self, im_1, im_1_b, huffman, huffman_b, label=None):
 
-        image_features, text_features = self.net(im_1, im_1_b, huffman, huffman_b)
-        image_features = self.bn(image_features)
-        text_features = self.bn(text_features)
+        image_features1, image_features2 = self.net(im_1, im_1_b, huffman, huffman_b)
+        image_features1 = self.bn(image_features1)
+        image_features2 = self.bn(image_features2)
 
         if label is not None:
-            out1 = self.head(image_features)
-            out2 = self.head(text_features)
-            return image_features, out1, text_features, out2
+            out1 = self.head(image_features1)
+            out2 = self.head(image_features2)
+            return image_features1, out1, image_features2, out2
         else:
-            return image_features, text_features
+            return image_features1, image_features2
 
 
