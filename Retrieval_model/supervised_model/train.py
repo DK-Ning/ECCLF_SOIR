@@ -92,7 +92,7 @@ def test(net, test_loader, test_label):
     feature_bank = []
     train_bar = tqdm(test_loader)
     with torch.no_grad():
-        for l_f1, l_f2, g_f1, g_f2 in train_bar:
+        for l_f1, l_f2, g_f1, g_f2, label in train_bar:
             l_f1, l_f2, g_f1, g_f2 = l_f1.cuda(non_blocking=True), l_f2.cuda(non_blocking=True), g_f1.cuda(non_blocking=True), g_f2.cuda(non_blocking=True)
 
 
