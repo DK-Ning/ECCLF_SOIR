@@ -11,7 +11,7 @@ from dataloader import DataPair
 from ..data_utils import split_data
 import torch.nn.functional as F
 from ..schedule import get_cosine_schedule_with_warmup
-from model import CLIP
+from model import ECCLF
 
 parser = argparse.ArgumentParser(description='Train unsupervised on TiT')
 args = parser.parse_args('')
@@ -109,7 +109,7 @@ def test(net, test_loader, test_label):
 
 if __name__ == '__main__':
 
-    model = CLIP().cuda()
+    model = ECCLF().cuda()
 
     optimizer = torch.optim.SGD(model.parameters(), lr=args.lr, weight_decay=args.weight_decay, momentum=0.9)
     scheduler = get_cosine_schedule_with_warmup(optimizer=optimizer, num_warmup_steps=20,
