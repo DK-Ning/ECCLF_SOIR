@@ -12,7 +12,7 @@ from ..data_utils import split_data
 import torch.nn.functional as F
 from ..schedule import  WarmupMultiStepLR
 from model import supervised_net
-from ..unsupervised_model.model import CLIP
+from ..unsupervised_model.model import ECCLF
 from loss import Ranked_list_Loss, CrossEntropyLabelSmooth
 
 parser = argparse.ArgumentParser(description='Train supervised on ECCLF')
@@ -24,7 +24,7 @@ args.schedule = []
 args.epochs = 70
 
 # Fine-Turning
-model = CLIP().cuda()
+model = ECCLF().cuda()
 model.load_state_dict(torch.load('unsupervised_model_last.pth')['state_dict'])
 
 # load trian data
