@@ -15,7 +15,7 @@ from model import supervised_net
 from ..unsupervised_model.model import CLIP
 from loss import Ranked_list_Loss, CrossEntropyLabelSmooth
 
-parser = argparse.ArgumentParser(description='Train supervised on TiT')
+parser = argparse.ArgumentParser(description='Train supervised on ECCLF')
 args = parser.parse_args('')
 
 args.lr = 1e-4
