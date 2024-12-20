@@ -13,7 +13,7 @@ import torch.nn.functional as F
 from ..schedule import get_cosine_schedule_with_warmup
 from model import ECCLF
 
-parser = argparse.ArgumentParser(description='Train unsupervised on TiT')
+parser = argparse.ArgumentParser(description='Train unsupervised on ECCLF')
 args = parser.parse_args('')
 
 ## set training parameter
