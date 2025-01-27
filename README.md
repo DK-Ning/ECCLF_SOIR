@@ -1,6 +1,1 @@
-# ECCLF: Enhanced CLIP Contrastive Learning Framework for Secure Outsourced Image Retrieval
-# ECCLF_SOIR
-# ECCLF_SOIR
-# ECCLF_SOIR
-# ECCLF_SOIR
-# ECCLF_SOIR
+Enhancing Secure Outsourced Image Retrieval via Contrastive Learning and MLP-Based Neural Architecture
